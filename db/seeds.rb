@@ -5,3 +5,6 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+Todolist.destroy_all!
+TodoList.create(title: 'todoToday')
+TodoList.create(title: 'todoTommorow')

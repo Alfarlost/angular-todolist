@@ -1,0 +1,49 @@
+.outer
+  %div
+    {{todoLists}}
+    %form.navbar-form{'ng-submit' => 'addList()'}
+      %input.input_task{'type' => 'text', 'ng-model' => 'newList', 'placeholder' => "Start typing here to create todolist..."}
+      %button.butn.btn-add{'type' => 'submit'}
+        Add List
+    %h2.headertext TODO Lists:
+    .container{'ng-repeat' => 'todoList in todoLists | orderBy : "-id"'}
+      .row
+        .span7
+          .navbar
+            .navbar-blue
+              %h3.bartext{'ng-init' => 'showEdit = false'}
+                .editable-input
+                  %span{'ng-hide' => 'showEdit'}
+                    {{todoList.title}}
+                  %input{'ng-show' => 'showEdit', 'type' => 'text', 'ng-model' => 'todoList.newTitle', 'focus-on' => '!!showEdit', 'ng-esc' => 'showEdit = false', 'ng-enter' => 'showEdit = false; changeTodoTitle(todoList)'}
+                .editable-del
+                  %a{'ng-hide' => 'showEdit', 'href' => "", 'class' => "icon-edit icon-white", 'ng-click' => 'showEdit = true; todoList.newTitle = todoList.title'}
+                  %a{'ng-show' => 'showEdit', 'href' => "", 'class' => "icon-ok icon-white", 'ng-click' => 'showEdit = false; changeTodoTitle(todoList)'}                
+                  %a{'href' => "", 'class' => "icon-trash icon-white", 'ng-click' => 'delList(todoList)'}
+          .navbar
+            .navbar-gray.editnav
+              %form.navbar-form{'ng-submit' => 'addTask(todoList, task)'}
+                %input.input_task{'type' => 'text', 'ng-model' => 'todoList.newTask', 'placeholder' => "Start typing here to create task..."}
+                %button.butn.btn-add{'type' => 'submit'}
+                  Add Task
+          %table.table.table-bordered  
+            %tbody{'ui-sortable' => 'sortableOptions', 'ng-model' => 'todoList.tasks'}
+              %tr{'ng-repeat' => 'task in todoList.tasks'}
+                %td.fixed4
+                  %input{'type' => 'checkbox', 'ng-model' => 'task.completed', 'ng-change' => 'completeTask(task)' }
+                %td.fixed1
+                  %strong{'ng-class' => "{'striked-text': task.completed}"}
+                    %editablespan{"model" => "task.description", 'on-ready' => "changeTaskDescription(todoList, task)", "input-class" => "input_task", 'input-type' => "text"}
+                    %small
+                      %span{'ng-show' => 'task.deadline || showDatePicker'}
+                        Deadline:
+                        %span{'ng-show' => 'task.deadline && !showDatePicker'} 
+                          {{task.deadline}}
+                      %input{"ui-date" => '', "ui-date-format" => "yy-mm-dd", "ng-model" => "task.deadline", 'ng-show' => "showDatePicker", 'focus-on' => '!!showDatePicker', "ng-change" => 'changeDeadline(task); showDatePicker = false', 'ng-blur' => 'showDatePicker = false', 'ng-close' => 'showDatePicker = false'}
+                  %hr
+                %td.fixed3
+                  %a{'href' => '', 'ng-click' => 'delTask(todoList, task)', 'class' => "icon-trash"}
+                  %a{'href' => '', 'ng-click' => 'showDatePicker = ! showDatePicker', 'class' => "icon-time"}
+                /  = link_to "", edit_todolist_task_path(@todolist, task), class: "icon-pencil"
+                /  | #{link_to "", set_deadline_todolist_task_path(@todolist.id, task.id), class: "icon-exclamation-sign"}
+          /%center= link_to '', new_todolist_path, class: 'addlist'

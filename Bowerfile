@@ -1,0 +1,8 @@
+asset 'angular'
+asset 'jquery-ui'
+asset 'angular-bootstrap', 'https://github.com/angular-ui/bootstrap-bower.git'
+asset 'angular-ui-router'
+asset 'angular-resource'
+asset 'angular-ui-sortable'
+asset 'angular-ui-date'
+asset 'mk-editable-span', "https://github.com/jrburke/requirejs-bower.git"

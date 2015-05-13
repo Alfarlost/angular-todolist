@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
+  root to: 'application#angular' 
+
   devise_for :users
 
-  resources :todo_lists
+  namespace :api, defaults: { format: :json } do
+    resources :todo_lists, only: [:index, :create, :destroy, :update] do
+      resources :tasks, only: [:create, :update, :destroy]
+    end
+  end  
 
-  root to: 'application#angular'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

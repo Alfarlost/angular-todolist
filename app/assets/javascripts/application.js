@@ -10,10 +10,17 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require jquery
+//= require jquery-ui
 //= require angular
+//= require angular-bootstrap
+//= require mk-editable-span/mk-editable-span.min.js
 //= require angular-ui-router
 //= require angular-rails-templates
+//= require angular-resource
+//= require angular-ui-sortable
+//= require angular-ui-date
 //= require_tree .
-//= require_tree ../templates
+//= require_tree ./templates
 
 

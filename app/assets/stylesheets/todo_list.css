@@ -1,0 +1,49 @@
+.col{
+    float:left;
+    width:350px;
+    border-left:1px solid red;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box; // for Mozilla
+    -webkit-box-sizing: border-box; // for WebKit
+    -ms-box-sizing: border-box; // for IE8
+}
+.check{
+    width:5%;
+}
+
+.control{
+    width:10%;
+}
+
+.task{
+    width:85%;    
+}
+
+.editable-input {
+width: 430px;
+height: 40px;
+float: left;
+margin: 0;
+border: 0;
+padding: 0;
+}
+.editable-del {
+float: left;
+margin-left: 0;
+width: 40px;
+height: 40px;
+}
+
+
+.input-form {
+ width: 430px;
+height: 20px;
+float: left;
+margin: 0;
+border: 0;
+padding: 0;   
+}
+
+#right {
+    float: right;
+}
