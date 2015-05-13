@@ -5,7 +5,9 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     resources :todo_lists, only: [:index, :create, :destroy, :update] do
-      resources :tasks, only: [:create, :update, :destroy]
+      resources :tasks, only: [:create, :update, :destroy] do
+        resources :comments, only: [:create, :destroy]
+      end
     end
   end  
 

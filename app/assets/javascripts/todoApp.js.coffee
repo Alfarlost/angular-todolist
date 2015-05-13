@@ -9,7 +9,8 @@ todoApp.controller 'MainCtrl', [
   '$timeout'
   'List'
   'Task'
-  ($scope, $timeout, List, Task) ->
+  'Comment'
+  ($scope, $timeout, List, Task, Comment) ->
     $scope.todoLists = List.all()
 
     $scope.addList = ->
@@ -56,6 +57,16 @@ todoApp.controller 'MainCtrl', [
 
     $scope.changeDeadline = (task) ->
       Task.update {todo_list_id: task.todo_list_id, id: task.id, deadline: task.deadline}
+
+    $scope.addComment = (task) ->
+      if !task.newComment || task.newComment == ''
+        return 
+      Comment.create {todo_list_id: task.todo_list_id, task_id: task.id, body: task.newComment},
+        (response) ->
+          unless task.comments
+            task['comments'] = new Array
+          task.comments.unshift response
+      task.newComment = ''
 
     updatePriorities = (currentTask, todoListIndex) ->
       $timeout ->
@@ -123,6 +134,14 @@ todoApp.factory 'Task', ($resource) ->
       method: 'DELETE'
     update:
       method: 'PATCH'
+
+todoApp.factory 'Comment', ($resource) ->
+  $resource ('/api/todo_lists/:todo_list_id/tasks/:task_id/comments/:id'), { todo_list_id: '@todo_list_id', task_id: '@task_id', id: '@id' },
+    create:
+      method: 'POST'
+    destroy:
+      method: 'DELETE'
+
 
 todoApp.directive 'focusOn', ($timeout) ->
   {

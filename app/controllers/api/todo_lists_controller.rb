@@ -1,6 +1,8 @@
 class Api::TodoListsController < ApplicationController
   def index
-    respond_with TodoList.all.to_json(:include => :tasks)
+    respond_with TodoList.all.to_json(:include => { :tasks => { 
+                                                      :include => { :comments => { 
+                                                        :include => :file_storages } } } })
   end
 
   def create

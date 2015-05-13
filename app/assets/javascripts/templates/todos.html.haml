@@ -40,10 +40,16 @@
                         %span{'ng-show' => 'task.deadline && !showDatePicker'} 
                           {{task.deadline}}
                       %input{"ui-date" => '', "ui-date-format" => "yy-mm-dd", "ng-model" => "task.deadline", 'ng-show' => "showDatePicker", 'focus-on' => '!!showDatePicker', "ng-change" => 'changeDeadline(task); showDatePicker = false', 'ng-blur' => 'showDatePicker = false', 'ng-close' => 'showDatePicker = false'}
-                  %hr
+                  %div{'ng-show' => 'showComments'}
+                    %hr
+                    %input{'ng-model' => 'task.newComment'}
+                    %a{'href' => '', 'ng-click' => 'addComment(task)', 'class' => "icon-plus"}
+                    %div{'ng-repeat' => 'comment in task.comments'}
+                      {{comment.body}}
                 %td.fixed3
                   %a{'href' => '', 'ng-click' => 'delTask(todoList, task)', 'class' => "icon-trash"}
                   %a{'href' => '', 'ng-click' => 'showDatePicker = ! showDatePicker', 'class' => "icon-time"}
+                  %a{'href' => '', 'ng-click' => 'showComments = ! showComments', 'class' => "icon-comment"}
                 /  = link_to "", edit_todolist_task_path(@todolist, task), class: "icon-pencil"
                 /  | #{link_to "", set_deadline_todolist_task_path(@todolist.id, task.id), class: "icon-exclamation-sign"}
           /%center= link_to '', new_todolist_path, class: 'addlist'
