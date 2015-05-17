@@ -2,7 +2,11 @@ class Api::TodoListsController < ApplicationController
   def index
     respond_with TodoList.all.to_json(:include => { :tasks => { 
                                                       :include => { :comments => { 
-                                                        :include => :file_storages } } } })
+                                                        :include => { :file_storages => {
+                                                          :except => [:created_at, :updated_at] } }, 
+                                                        :except => [:created_at, :updated_at] } },
+                                                      :except => [:created_at, :updated_at] } }, 
+                                                    :except => [:created_at, :updated_at])
   end
 
   def create

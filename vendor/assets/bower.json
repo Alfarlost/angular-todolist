@@ -3,11 +3,12 @@
   "dependencies": {
     "angular": "latest",
     "jquery-ui": "latest",
-    "angular-bootstrap": "https://github.com/angular-ui/bootstrap-bower.git",
     "angular-ui-router": "latest",
     "angular-resource": "latest",
     "angular-ui-sortable": "latest",
     "angular-ui-date": "latest",
+    "angular-file-upload": "latest",
+    "bootstrap-sass-official": "latest",
     "mk-editable-span": "https://github.com/jrburke/requirejs-bower.git"
   }
 }

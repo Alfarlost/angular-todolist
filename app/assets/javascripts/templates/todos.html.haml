@@ -6,50 +6,48 @@
       %button.butn.btn-add{'type' => 'submit'}
         Add List
     %h2.headertext TODO Lists:
-    .container{'ng-repeat' => 'todoList in todoLists | orderBy : "-id"'}
+    .container-nav{'ng-repeat' => 'todoList in todoLists | orderBy : "-id"'}
       .row
-        .span7
-          .navbar
-            .navbar-blue
-              %h3.bartext{'ng-init' => 'showEdit = false'}
+        .span-all
+          .nav-bar
+            .nav-bar-blue
+              %h3.bar-text{'ng-init' => 'showEdit = false'}
                 .editable-input
                   %span{'ng-hide' => 'showEdit'}
                     {{todoList.title}}
                   %input{'ng-show' => 'showEdit', 'type' => 'text', 'ng-model' => 'todoList.newTitle', 'focus-on' => '!!showEdit', 'ng-esc' => 'showEdit = false', 'ng-enter' => 'showEdit = false; changeTodoTitle(todoList)'}
                 .editable-del
-                  %a{'ng-hide' => 'showEdit', 'href' => "", 'class' => "icon-edit icon-white", 'ng-click' => 'showEdit = true; todoList.newTitle = todoList.title'}
-                  %a{'ng-show' => 'showEdit', 'href' => "", 'class' => "icon-ok icon-white", 'ng-click' => 'showEdit = false; changeTodoTitle(todoList)'}                
-                  %a{'href' => "", 'class' => "icon-trash icon-white", 'ng-click' => 'delList(todoList)'}
-          .navbar
-            .navbar-gray.editnav
-              %form.navbar-form{'ng-submit' => 'addTask(todoList, task)'}
+                  %a.glyphicon.glyphicon-edit.btn-list{'ng-hide' => 'showEdit', 'href' => "", 'ng-click' => 'showEdit = true; todoList.newTitle = todoList.title'}
+                  %a.glyphicon.glyphicon-ok.btn-list{'ng-show' => 'showEdit', 'href' => "", 'ng-click' => 'showEdit = false; changeTodoTitle(todoList)'}                
+                  %a.glyphicon.glyphicon-trash.btn-list{'href' => "", 'ng-click' => 'delList(todoList)'}
+          .nav-bar
+            .nav-bar-gray.editnav
+              %form.nav-bar-form{'ng-submit' => 'addTask(todoList, task)'}
                 %input.input_task{'type' => 'text', 'ng-model' => 'todoList.newTask', 'placeholder' => "Start typing here to create task..."}
                 %button.butn.btn-add{'type' => 'submit'}
                   Add Task
-          %table.table.table-bordered  
-            %tbody{'ui-sortable' => 'sortableOptions', 'ng-model' => 'todoList.tasks'}
-              %tr{'ng-repeat' => 'task in todoList.tasks'}
-                %td.fixed4
-                  %input{'type' => 'checkbox', 'ng-model' => 'task.completed', 'ng-change' => 'completeTask(task)' }
-                %td.fixed1
-                  %strong{'ng-class' => "{'striked-text': task.completed}"}
-                    %editablespan{"model" => "task.description", 'on-ready' => "changeTaskDescription(todoList, task)", "input-class" => "input_task", 'input-type' => "text"}
-                    %small
-                      %span{'ng-show' => 'task.deadline || showDatePicker'}
-                        Deadline:
-                        %span{'ng-show' => 'task.deadline && !showDatePicker'} 
-                          {{task.deadline}}
-                      %input{"ui-date" => '', "ui-date-format" => "yy-mm-dd", "ng-model" => "task.deadline", 'ng-show' => "showDatePicker", 'focus-on' => '!!showDatePicker', "ng-change" => 'changeDeadline(task); showDatePicker = false', 'ng-blur' => 'showDatePicker = false', 'ng-close' => 'showDatePicker = false'}
-                  %div{'ng-show' => 'showComments'}
-                    %hr
-                    %input{'ng-model' => 'task.newComment'}
-                    %a{'href' => '', 'ng-click' => 'addComment(task)', 'class' => "icon-plus"}
-                    %div{'ng-repeat' => 'comment in task.comments'}
-                      {{comment.body}}
-                %td.fixed3
-                  %a{'href' => '', 'ng-click' => 'delTask(todoList, task)', 'class' => "icon-trash"}
-                  %a{'href' => '', 'ng-click' => 'showDatePicker = ! showDatePicker', 'class' => "icon-time"}
-                  %a{'href' => '', 'ng-click' => 'showComments = ! showComments', 'class' => "icon-comment"}
+          %ul.sortarable{'ui-sortable' => 'sortableOptions', 'ng-model' => 'todoList.tasks'}
+            %li{'ng-repeat' => 'task in todoList.tasks'}
+              .check
+                %input{'type' => 'checkbox', 'ng-model' => 'task.completed', 'ng-change' => 'completeTask(task)' }
+              .body
+                %strong{'ng-class' => "{'striked-text': task.completed}"}
+                  %editablespan{"model" => "task.description", 'on-ready' => "changeTaskDescription(todoList, task)", "input-class" => "input_task", 'input-type' => "text"}
+                  %small
+                    %span{'ng-show' => 'task.deadline || showDatePicker'}
+                      Deadline:
+                      %span{'ng-show' => 'task.deadline && !showDatePicker'} 
+                        {{task.deadline}}
+                    %input{"ui-date" => '', "ui-date-format" => "yy-mm-dd", "ng-model" => "task.deadline", 'ng-show' => "showDatePicker", 'focus-on' => '!!showDatePicker', "ng-change" => 'changeDeadline(task); showDatePicker = false', 'ng-blur' => 'showDatePicker = false', 'ng-esc' => 'showDatePicker = false'}
+                %div{'ng-show' => 'showComments'}
+                  %hr
+                  %input{'ng-model' => 'task.newComment'}
+                  %a.glyphicon.glyphicon-plus{'href' => '', 'ng-click' => 'addComment(task)'}
+                  %div{'ng-repeat' => 'comment in task.comments', "ng-include" => '"comment.html"', 'ng-controller' => 'CommentCtrl'}
+              .control
+                %a.glyphicon.glyphicon-trash.btn-task{'href' => '', 'ng-click' => 'delTask(todoList, task)'}
+                %a.glyphicon.glyphicon-time.btn-task{'href' => '', 'ng-click' => 'showDatePicker = ! showDatePicker'}
+                %a.glyphicon.glyphicon-comment.btn-task{'href' => '', 'ng-click' => 'showComments = ! showComments'}
                 /  = link_to "", edit_todolist_task_path(@todolist, task), class: "icon-pencil"
                 /  | #{link_to "", set_deadline_todolist_task_path(@todolist.id, task.id), class: "icon-exclamation-sign"}
           /%center= link_to '', new_todolist_path, class: 'addlist'

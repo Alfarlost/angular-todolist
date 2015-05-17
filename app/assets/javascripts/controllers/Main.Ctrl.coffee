@@ -1,16 +1,11 @@
-todoApp = angular.module('todoApp', ['templates', 'ui.router', 'ngResource', 'ui.sortable', 'mk.editablespan', 'ui.date', 'ui.bootstrap'])
-
-$(document).tooltip({ selector: "[title]", trigger: 'focus', placement: 'bottom' })
-
-$.datepicker.parseDate( "yy-mm-dd", "2007-01-26" )
-
-todoApp.controller 'MainCtrl', [
+angular.module('todoApp').controller 'MainCtrl', [
   '$scope'
   '$timeout'
   'List'
   'Task'
   'Comment'
-  ($scope, $timeout, List, Task, Comment) ->
+  'FileUploader'
+  ($scope, $timeout, List, Task, Comment, FileUploader) ->
     $scope.todoLists = List.all()
 
     $scope.addList = ->
@@ -75,6 +70,7 @@ todoApp.controller 'MainCtrl', [
         $scope.priorityChanged(currentTask)
 
     fixHelper = (e, ui) ->
+      ui.css({'word-wrap':'break-word', 'max-width':'100%'})
       ui.children().each ->
         $(this).width $(this).width()
         return
@@ -99,76 +95,5 @@ todoApp.controller 'MainCtrl', [
       update: 
         (e, ui) ->
           task = ui.item.scope().task
-          updatePriorities(task, todoIndexFilter(task.todo_list_id))
-   
+          updatePriorities(task, todoIndexFilter(task.todo_list_id))  
 ]
-
-todoApp.config [
-  '$stateProvider'
-  '$urlRouterProvider'
-  ($stateProvider, $urlRouterProvider) ->
-    $stateProvider.state 'home',
-      url: '/home'
-      templateUrl: "todos.html"
-      controller: 'MainCtrl'
-    $urlRouterProvider.otherwise '/home'
-]
-
-todoApp.factory 'List', ($resource) ->
-  $resource ('/api/todo_lists/:id'), { id: '@id' },
-    create:
-      method: 'POST'
-    all:
-      method: 'GET'
-      isArray: true
-    destroy:
-      method: 'DELETE'
-    update:
-      method: 'PATCH'
-
-todoApp.factory 'Task', ($resource) ->
-  $resource ('/api/todo_lists/:todo_list_id/tasks/:id'), { todo_list_id: '@todo_list_id', id: '@id' },
-    create:
-      method: 'POST'
-    destroy:
-      method: 'DELETE'
-    update:
-      method: 'PATCH'
-
-todoApp.factory 'Comment', ($resource) ->
-  $resource ('/api/todo_lists/:todo_list_id/tasks/:task_id/comments/:id'), { todo_list_id: '@todo_list_id', task_id: '@task_id', id: '@id' },
-    create:
-      method: 'POST'
-    destroy:
-      method: 'DELETE'
-
-
-todoApp.directive 'focusOn', ($timeout) ->
-  {
-    restrict: 'A'
-    link: ($scope, $element, $attr) ->
-      $scope.$watch $attr.focusOn, (_focusVal) ->
-        $timeout ->
-          if _focusVal then $element.focus()
-  }
-
-todoApp.directive 'ngEsc', ->
-  (scope, element, attrs) ->
-    element.bind "keydown keypress", (event) ->
-      if event.which == 27
-        scope.$apply ->
-          scope.$eval attrs.ngEsc 
-        event.preventDefault()
-
-todoApp.directive 'ngEnter', ->
-  (scope, element, attrs) ->
-    element.bind "keydown keypress", (event) ->
-      if event.which == 13
-        scope.$apply ->
-          scope.$eval attrs.ngEnter 
-        event.preventDefault()
-
-
-
-
-

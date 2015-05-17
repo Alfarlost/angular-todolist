@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   root to: 'application#angular' 
 
   devise_for :users
@@ -11,6 +12,7 @@ Rails.application.routes.draw do
     end
   end  
 
+  post 'file_storages', to: 'file_storages#create', defaults: { format: :json }
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
