@@ -1,6 +1,8 @@
 class Api::TodoListsController < ApplicationController
+  load_and_authorize_resource
+
   def index
-    respond_with TodoList.all.to_json(:include => { :tasks => { 
+    respond_with @todo_lists.to_json(:include => { :tasks => { 
                                                       :include => { :comments => { 
                                                         :include => { :file_storages => {
                                                           :except => [:created_at, :updated_at] } }, 
@@ -10,23 +12,32 @@ class Api::TodoListsController < ApplicationController
   end
 
   def create
-    todo_list = TodoList.create(todo_params)
-    respond_with :api, todo_list
+    if @todo_list.save
+      respond_with :api, @todo_list
+    else
+      respond_with nothing: true, status: 403
+    end
   end
 
   def update
-    todo_list = TodoList.find(params[:id])
-    todo_list.update(todo_params)
-    respond_with nothing: true
+    if @todo_list.update(todo_list_params)
+      respond_with nothing: true
+    else
+      respond_with nothing: true, status: 403
+    end
   end
 
   def destroy
-    respond_with TodoList.destroy(params[:id])
+    if @todo_list.destroy
+      respond_with nothing: true
+    else
+      respond_with nothing: true, status: 403
+    end
   end
 
   private
 
-  def todo_params
+  def todo_list_params
     params.require(:todo_list).permit(:title)
   end 
 end

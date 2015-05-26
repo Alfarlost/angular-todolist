@@ -1,0 +1,21 @@
+.check
+  %input{'type' => 'checkbox', 'ng-model' => 'task.completed', 'ng-change' => 'completeTask(task)' }
+.body
+  %strong{'ng-class' => "{'striked-text': task.completed}"}
+    %editablespan{"model" => "task.description", 'on-ready' => "changeTaskDescription(todoList, task)", "input-class" => "input_task", 'input-type' => "text"}
+    %small
+      %span{'ng-show' => 'task.deadline || task.showDatePicker'}
+        Deadline:
+        %span{'ng-show' => 'task.deadline && !task.showDatePicker'} 
+          {{task.deadline}}
+      %input{"ui-date" => '', "ui-date-format" => "yy-mm-dd", "ng-model" => "task.deadline", 'ng-show' => "task.showDatePicker", 'focus-on' => '!!task.showDatePicker', "ng-change" => 'changeDeadline(task); task.showDatePicker = false', 'ng-blur' => 'task.showDatePicker = false', 'ng-esc' => 'task.showDatePicker = false'}
+  .commets-block{'ng-show' => 'task.showComments', 'ng-controller' => 'CommentCtrl'}
+    %hr
+    %form{'ng-submit' => 'addComment(task)'}
+      %input.form-field{'ng-model' => 'task.newComment', 'placeholder' => 'Add new comment!', 'ng-required' => ''}
+      %button.glyphicon.glyphicon-plus.btn-link{'type' => 'submit'}
+    %div{'ng-repeat' => 'comment in task.comments', "ng-include" => '"_comment.html"'}
+.control{'ng-controller' => 'TaskCtrl'}
+  %a.glyphicon.glyphicon-trash.btn-task{'href' => '', 'ng-click' => 'delTask(todoList, task)'}
+  %a.glyphicon.glyphicon-time.btn-task{'href' => '', 'ng-click' => 'task.showDatePicker = ! task.showDatePicker'}
+  %a.glyphicon.glyphicon-comment.btn-task{'href' => '', 'ng-click' => 'task.showComments = ! task.showComments'}

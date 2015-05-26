@@ -1,5 +1,6 @@
 asset 'angular'
 asset 'jquery-ui'
+asset 'angular-devise'
 asset 'angular-ui-router'
 asset 'angular-resource'
 asset 'angular-ui-sortable'

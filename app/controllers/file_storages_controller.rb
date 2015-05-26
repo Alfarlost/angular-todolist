@@ -1,10 +1,14 @@
 class FileStoragesController < ApplicationController
   skip_before_action :verify_authenticity_token
+  load_resource :comment
+  load_and_authorize_resource :through => :comment
 
   def create
-    comment = Comment.find(params[:comment_id])
-    @file = comment.file_storages.create(file_storage_params)
-    render 'file_storages/create', status: 201
+    if @file_storage.save
+      render 'file_storages/create', status: 201
+    else
+      render nothing: true, status: 403
+    end
   end
 
 private

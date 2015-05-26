@@ -1,0 +1,13 @@
+.col-xs-4.col-xs-offset-4.text-center
+  %h2 Log in
+  = link_to image_tag("facebook.png"), user_omniauth_authorize_path(:facebook)
+  or
+  %form{'ng-submit' => 'logIn()'}
+    %h2.form-signin-heading 
+      %br/
+      %input.form-control{'type' => 'email', 'autofocus' => 'true', 'placeholder' => "Your email", 'ng-model' => 'email', 'ng-required' => ''}
+      %input.form-control{'type' => 'password', 'autocomplete' => 'off', 'placeholder' => "Password", 'ng-model' => 'password', 'ng-required' => ''}
+    .actions
+      %input.btn.btn-lg.btn-primary.btn-block{'type' => 'submit', 'value' => 'Log in'} 
+      %p Wonna get account? 
+      %a{'href' => '', 'ng-href' => '#/sign_up'} Sign Up

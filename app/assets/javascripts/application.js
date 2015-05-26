@@ -17,6 +17,7 @@
 //= require angular-ui-router
 //= require angular-rails-templates
 //= require angular-resource
+//= require angular-devise
 //= require angular-ui-sortable
 //= require angular-ui-date
 //= require angular-file-upload

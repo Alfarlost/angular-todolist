@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   root to: 'application#angular' 
 
-  devise_for :users
+  devise_for :users, defaults: { format: :json }, controllers: {omniauth_callbacks: "callbacks"}
 
   namespace :api, defaults: { format: :json } do
     resources :todo_lists, only: [:index, :create, :destroy, :update] do
@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   end  
 
   post 'file_storages', to: 'file_storages#create', defaults: { format: :json }
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -1,0 +1,22 @@
+.row{'ng-controller' => 'TodoListCtrl'}
+  .span-all
+    .nav-bar
+      .nav-bar-blue
+        %h3.bar-text{'ng-init' => 'showEdit = false'}
+          .editable-input
+            %span{'ng-hide' => 'showEdit'}
+              {{todoList.title}}
+            %input{'ng-show' => 'showEdit', 'type' => 'text', 'ng-model' => 'todoList.newTitle', 'focus-on' => '!!showEdit', 'ng-esc' => 'showEdit = false', 'ng-enter' => 'showEdit = false; changeTodoTitle(todoList)'}
+          .editable-del
+            %a.glyphicon.glyphicon-edit.btn-list{'ng-hide' => 'showEdit', 'href' => "", 'ng-click' => 'showEdit = true; todoList.newTitle = todoList.title'}
+            %a.glyphicon.glyphicon-ok.btn-list{'ng-show' => 'showEdit', 'href' => "", 'ng-click' => 'showEdit = false; changeTodoTitle(todoList)'}                
+            %a.glyphicon.glyphicon-trash.btn-list{'href' => "", 'ng-click' => 'delList(todoList)'}
+    .tasks-block{'ng-controller' => 'TaskCtrl'}        
+      .nav-bar
+        .nav-bar-gray.editnav
+          %form.nav-bar-form{'ng-submit' => 'addTask(todoList, task)'}
+            %input.input_task.form-field{'type' => 'text', 'ng-model' => 'todoList.newTask', 'placeholder' => "Start typing here to create task...", 'ng-required' => ''}
+            %button.butn.btn-add{'type' => 'submit'}
+              Add Task
+      %ul.sortarable{'ui-sortable' => 'sortableOptions', 'ng-model' => 'todoList.tasks'}
+        %li{'ng-repeat' => 'task in todoList.tasks', 'ng-include' => '"_task.html"'}

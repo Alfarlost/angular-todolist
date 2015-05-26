@@ -1,0 +1,19 @@
+%hr
+{{comment.body}}
+%sup.comment-control
+  %a.glyphicon.glyphicon-paperclip{'href' => '', 'ng-click' => 'showUpload = ! showUpload'}
+  %a.glyphicon.glyphicon-trash{'href' => '', 'ng-click' => 'deleteComment(task, comment)'}
+%div{'ng-show' => 'showUpload'}
+  %input{'type'=> "file", 'nv-file-select' => '', 'uploader' => "uploader", "options" => "{ formData: [  {comment_id: comment.id} ] }", 'multiple' => ''}
+  %ul
+    %li{"ng-repeat" => "item in uploader.queue"}
+      Name:
+      %span{"ng-bind" => "item.file.name"}
+      %br/
+    %button{"ng-click" => "uploader.uploadAll()"} upload
+.file-block{'ng-show' => 'comment.file_storages'}
+  Attached files:
+  %div
+    %span{'ng-repeat' => 'file in comment.file_storages'}
+      %a{"target" => "_blank", 'href' => '{{file.file.url}}'} 
+        {{file.file_name}},

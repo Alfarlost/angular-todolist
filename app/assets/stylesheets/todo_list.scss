@@ -16,12 +16,10 @@ body {
 a,
 input {
   outline: 0 !important; 
-}
-
-a:hover,
-input:hover {
-  outline: 0 !important;
-  text-decoration: none !important; 
+  &:hover {
+    outline: 0 !important;
+    text-decoration: none !important; 
+  }
 }
 
 .col{
@@ -51,7 +49,6 @@ input:hover {
   width: 40px;
   height: 30px;
 }
-
 
 .input-form {
   width: 430px;
@@ -160,6 +157,12 @@ margin-top: 50px;
   color: #fff; 
   font-size: 16px;
   opacity: 0.7;
+
+  &:hover{
+    text-decoration: none;
+    opacity: 1;
+    color: #fff;
+  }
 }
 
 .btn-task {
@@ -168,10 +171,25 @@ margin-top: 50px;
   opacity: 0.7;
 }
 
-.btn-list:hover {
-  text-decoration: none;
-  opacity: 1;
-  color: #fff;
+.btn-link {
+  background-color: transparent;
+  border: none;
+  color: blue;
+  cursor: pointer;
+
+  &:focus, &:hover {
+    outline: 0 !important;
+    text-decoration: none !important;
+    color: #fff; 
+  }
+}
+
+.comment-control {
+  font-size: 11px;
+
+  .delete{
+    text-decoration: underline;;
+  }
 }
 
 .sortarable {
@@ -213,7 +231,7 @@ margin-top: 50px;
       width: 80%;
     }
 
-    .control{
+    .control {
       position: absolute;
       top: 0;
       right: 0;
@@ -225,17 +243,17 @@ margin-top: 50px;
       visibility: hidden;
       opacity: 0,7;
     }
-  }
 
-  li:last-child{
-    border-bottom: none;
-  }
+    &:last-child {
+      border-bottom: none;
+    }
 
-  li:hover {
-    background-color: #ffffcc;
-    cursor: pointer;
-    .control {
-      visibility:visible;
+    &:hover {
+      background-color: #ffffcc;
+      cursor: pointer;
+      .control {
+        visibility:visible;
+      }
     }
   }
 }
