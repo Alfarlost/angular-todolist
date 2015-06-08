@@ -1,3 +1,5 @@
 App on heroku: https://alfar-angular-todolist-app.herokuapp.com/
-<p>test user: test@test.com</p>
-<p>test password: test1234</p>
+
+test user: test@test.com
+
+test password: test1234
