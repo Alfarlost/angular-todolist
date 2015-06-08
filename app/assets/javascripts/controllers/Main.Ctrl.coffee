@@ -7,4 +7,5 @@ angular.module('todoApp').controller 'MainCtrl', [
     $scope.logOut = () ->
       Auth.logout().then () ->
         $state.go 'login'
+        $rootScope.user = null
 ]

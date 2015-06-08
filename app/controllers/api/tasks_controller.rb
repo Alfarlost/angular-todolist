@@ -1,34 +1,36 @@
 class Api::TasksController < ApplicationController
-  load_resource :todo_list
-  load_and_authorize_resource :through => :todo_list
+  load_and_authorize_resource :except => :create 
 
   def create
+    @todo_list = TodoList.find(params[:todo_list_id])
+    @task = @todo_list.tasks.build(task_params)
+    authorize! :create, @task
     if @task.save
-      respond_with @task, location: api_todo_list_tasks_url
+      render json: @task, serializer: TaskSerializer, status: 201
     else
-      respond_with nothing: true, status: 403
+      render nothing: true, status: 403
     end
   end
 
   def update
     if @task.update(task_params)
-      respond_with nothing: true
+      render nothing: true, status: 204
     else
-      respond_with nothing: true, status: 403
+      render nothing: true, status: 403
     end
   end
   
   def destroy
     if @task.destroy
-      respond_with nothing: true
+      render nothing: true, status: 204
     else
-      respond_with nothing: true, status: 403
+      render nothing: true, status: 403
     end
   end
 
   private
 
   def task_params
-    params.require(:task).permit(:description, :priority, :completed, :deadline)
+    params.permit(:description, :priority, :completed, :deadline)
   end
 end

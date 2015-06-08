@@ -7,7 +7,7 @@ angular.module('todoApp').config [
       templateUrl: "todos.html"
       controller: 'MainCtrl'
       data:
-        requireLogin : true
+        requireLogin: true
     $stateProvider.state 'login',
       url: '/log_in'
       templateUrl: "log_in.html"

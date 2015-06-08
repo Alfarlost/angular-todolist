@@ -1,11 +1,7 @@
-.outer
-  %div
-    {{todoLists}}
-    %button{'ng-click' => 'logOut()'}
-      Log Out!
-    %form.navbar-form{'ng-controller' => 'TodoListCtrl', 'ng-submit' => 'addList()'}
-      %input.input_task{'type' => 'text', 'ng-model' => 'newList', 'placeholder' => "Start typing here to create todolist..."}
-      %button.butn.btn-add{'type' => 'submit'}
-        Add List
-    %h2.headertext TODO Lists:
-    .container-nav{'ng-repeat' => 'todoList in todoLists | orderBy : "-id"', 'ng-include' => '"_todo_list.html"'}
+.outer{'ng-controller' => 'TodoListCtrl'}
+  .headertext
+    %h2
+      %b SIMPLE TODO LISTS
+    %h4 FROM RUBY GARAGE
+  .container-nav{'ng-repeat' => 'todoList in todoLists | orderBy : "-id"', 'ng-include' => '"_todo_list.html"'}
+  %a.addlist{'href' => '', 'ng-click' => 'addList()'}

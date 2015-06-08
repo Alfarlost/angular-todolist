@@ -1,14 +1,15 @@
 .col-xs-4.col-xs-offset-4.text-center
   %h2 Sign Up
   = link_to image_tag("facebook.png"), user_omniauth_authorize_path(:facebook)
-  or
+  %h2 or
   %form{'ng-submit' => 'signUp()'}
     %h2.form-signin-heading 
       %br/
-      %input.form-control{'type' => 'email', 'autofocus' => 'true', 'placeholder' => "Your email", 'ng-model' => 'email', 'ng-required' => ''}
-      %input.form-control{'type' => 'password', 'autocomplete' => 'off', 'placeholder' => "Password", 'ng-model' => 'password', 'ng-required' => ''}
-      %input.form-control{'type' => 'password', 'autocomplete' => 'off', 'placeholder' => "Password confirmation", 'ng-model' => 'password_confirmation', 'ng-required' => ''}
+      %input.form-control{'type' => 'email', 'autofocus' => 'true', 'placeholder' => "Your email", 'ng-model' => 'email', 'required' => 'true'}
+      %input.form-control{'type' => 'password', 'autocomplete' => 'off', 'placeholder' => "Password", 'ng-model' => 'password', 'required' => 'true'}
+      %input.form-control{'type' => 'password', 'autocomplete' => 'off', 'placeholder' => "Password confirmation", 'ng-model' => 'password_confirmation', 'required' => 'true'}
     .actions
-      %input.btn.btn-lg.btn-primary.btn-block{'type' => 'submit', 'value' => 'Log in'} 
-      %p Already have an account? 
-      %a{'href' => '', 'ng-href' => '#/log_in'} Log In
+      %input.btn.btn-lg.btn-primary.btn-block{'type' => 'submit', 'value' => 'Sign Up'} 
+  %span
+    Already have an account? 
+    %a{'href' => '', 'ng-href' => '#/log_in'} Log In

@@ -2,7 +2,9 @@
   %input{'type' => 'checkbox', 'ng-model' => 'task.completed', 'ng-change' => 'completeTask(task)' }
 .body
   %strong{'ng-class' => "{'striked-text': task.completed}"}
-    %editablespan{"model" => "task.description", 'on-ready' => "changeTaskDescription(todoList, task)", "input-class" => "input_task", 'input-type' => "text"}
+    .task-description{'ng-hide' => 'task.showEdit'}
+      {{task.description}}
+    %input.fixed-input.task_edit{'name' => 'task-change', 'ng-show' => 'task.showEdit', 'type' => 'text', 'ng-model' => 'task.newDescription', 'focus-on' => '!!task.showEdit', 'ng-esc' => 'task.showEdit = false', 'ng-enter' => 'task.showEdit = false; changeTaskDescription(task)', "ng-maxlength" => 200}
     %small
       %span{'ng-show' => 'task.deadline || task.showDatePicker'}
         Deadline:
@@ -12,10 +14,14 @@
   .commets-block{'ng-show' => 'task.showComments', 'ng-controller' => 'CommentCtrl'}
     %hr
     %form{'ng-submit' => 'addComment(task)'}
-      %input.form-field{'ng-model' => 'task.newComment', 'placeholder' => 'Add new comment!', 'ng-required' => ''}
+      %input.input_comment{'ng-model' => 'task.newComment', 'placeholder' => 'Add new comment!', 'ng-required' => '', "ng-maxlength" => 200 }
       %button.glyphicon.glyphicon-plus.btn-link{'type' => 'submit'}
     %div{'ng-repeat' => 'comment in task.comments', "ng-include" => '"_comment.html"'}
-.control{'ng-controller' => 'TaskCtrl'}
-  %a.glyphicon.glyphicon-trash.btn-task{'href' => '', 'ng-click' => 'delTask(todoList, task)'}
+.control
+  %a.glyphicon.glyphicon-edit.btn-task{'href' => '', 'ng-hide' => 'task.showEdit', 'ng-click' => 'task.showEdit = true; task.newDescription = task.description'}
+  %a.glyphicon.glyphicon-ok.btn-task{'href' => '', 'ng-show' => 'task.showEdit', 'ng-click' => 'task.showEdit = false; changeTaskDescription(task)'}
+  |
   %a.glyphicon.glyphicon-time.btn-task{'href' => '', 'ng-click' => 'task.showDatePicker = ! task.showDatePicker'}
   %a.glyphicon.glyphicon-comment.btn-task{'href' => '', 'ng-click' => 'task.showComments = ! task.showComments'}
+  |
+  %a.glyphicon.glyphicon-trash.btn-task{'href' => '', 'ng-click' => 'delTask(todoList, task)'}

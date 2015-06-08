@@ -4,12 +4,10 @@ angular.module('todoApp').controller 'TodoListCtrl', [
   'List'
   ($scope, $rootScope, List) -> 
     $scope.addList = ->
-      if !$scope.newList || $scope.newList == ''
-        return 
-      List.create {title: $scope.newList}, 
+      List.create {title: 'New Todo List'}, 
         (response) ->
           $rootScope.todoLists.unshift response
-      $scope.newList = ''
+          $rootScope.todoLists[0]['showEdit'] = true
 
     $scope.delList = (todoList) ->
       List.destroy {id: todoList.id},
@@ -17,7 +15,7 @@ angular.module('todoApp').controller 'TodoListCtrl', [
           $rootScope.todoLists.splice($rootScope.todoLists.indexOf(todoList), 1)
 
     $scope.changeTodoTitle = (todoList) ->
-      unless todoList.title == todoList.newTitle
+      unless todoList.title == todoList.newTitle || !todoList.newTitle || todoList.newTitle == ''
         todoList.title = todoList.newTitle
         List.update {id: todoList.id, title: todoList.title}
 ]

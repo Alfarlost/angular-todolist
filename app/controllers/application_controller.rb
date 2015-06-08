@@ -7,4 +7,8 @@ class ApplicationController < ActionController::Base
   def angular
     render 'layouts/application'
   end
+
+  def default_serializer_options
+    {root: false}
+  end
 end

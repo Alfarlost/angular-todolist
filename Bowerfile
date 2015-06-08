@@ -7,4 +7,5 @@ asset 'angular-ui-sortable'
 asset 'angular-ui-date'
 asset 'angular-file-upload'
 asset 'bootstrap-sass-official'
-asset 'mk-editable-span', "https://github.com/jrburke/requirejs-bower.git"
+asset 'angular-toastr', '0.4.0'
+asset 'angular-animate'

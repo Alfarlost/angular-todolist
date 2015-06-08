@@ -10,6 +10,7 @@
     "angular-ui-date": "latest",
     "angular-file-upload": "latest",
     "bootstrap-sass-official": "latest",
-    "mk-editable-span": "https://github.com/jrburke/requirejs-bower.git"
+    "angular-toastr": "0.4.0",
+    "angular-animate": "latest"
   }
 }

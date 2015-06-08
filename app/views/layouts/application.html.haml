@@ -5,5 +5,18 @@
     = stylesheet_link_tag    'application', media: 'all'
     = javascript_include_tag 'application'
     = csrf_meta_tags
-  %body{"ng-app" => "todoApp"}
+  %body{"ng-app" => "todoApp", 'ng-controller' => 'MainCtrl'}
+    .nav-bar
+      .navbar-inner
+        .brand
+          Your TODO Lists here!
+        %br
+        .info
+          %div{'ng-show' => 'user'}
+            Signed in as 
+            %b {{user.email}}
+            %a{'href' => "", 'ng-click' => 'logOut()' } Sign out
     %ui-view
+  .footer
+    .footer-text
+      &copy; Ruby Garage 2014

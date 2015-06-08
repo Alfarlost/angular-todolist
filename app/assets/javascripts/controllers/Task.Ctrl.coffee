@@ -20,7 +20,9 @@ angular.module('todoApp').controller 'TaskCtrl', [
           todoList.tasks.splice todoList.tasks.indexOf(task), 1
     
     $scope.changeTaskDescription = (task) ->
-      Task.update {todo_list_id: task.todo_list_id, id: task.id, description: task.description}
+      unless task.description == task.newDescription || !task.newDescription || task.newDescription == ''
+        task.description = task.newDescription
+        Task.update {todo_list_id: task.todo_list_id, id: task.id, description: task.description}
     
     $scope.completeTask = (task) ->
       Task.update {todo_list_id: task.todo_list_id, id: task.id, completed: task.completed}

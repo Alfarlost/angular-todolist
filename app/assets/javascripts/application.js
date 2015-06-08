@@ -13,7 +13,8 @@
 //= require jquery
 //= require jquery-ui
 //= require angular
-//= require mk-editable-span/mk-editable-span.min.js
+//= require angular-animate
+//= require angular-toastr
 //= require angular-ui-router
 //= require angular-rails-templates
 //= require angular-resource

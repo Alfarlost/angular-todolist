@@ -2,42 +2,36 @@ class Api::TodoListsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    respond_with @todo_lists.to_json(:include => { :tasks => { 
-                                                      :include => { :comments => { 
-                                                        :include => { :file_storages => {
-                                                          :except => [:created_at, :updated_at] } }, 
-                                                        :except => [:created_at, :updated_at] } },
-                                                      :except => [:created_at, :updated_at] } }, 
-                                                    :except => [:created_at, :updated_at])
+    render json: @todo_lists, each_serializer: TodoListSerializer
   end
 
   def create
     if @todo_list.save
-      respond_with :api, @todo_list
+      render json: @todo_list, serializer: TodoListSerializer, status: 201
     else
-      respond_with nothing: true, status: 403
+      render nothing: true, status: 403
     end
   end
 
   def update
     if @todo_list.update(todo_list_params)
-      respond_with nothing: true
+      render nothing: true, status: 204
     else
-      respond_with nothing: true, status: 403
+      render nothing: true, status: 403
     end
   end
 
   def destroy
     if @todo_list.destroy
-      respond_with nothing: true
+      render nothing: true, status: 204
     else
-      respond_with nothing: true, status: 403
+      render nothing: true, status: 403
     end
   end
 
   private
 
   def todo_list_params
-    params.require(:todo_list).permit(:title)
+    params.permit(:title)
   end 
 end

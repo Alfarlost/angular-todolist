@@ -1,5 +1,5 @@
-angular.module('todoApp').controller 'CommentCtrl', ['$scope', 'Comment', 'FileUploader', '$rootScope',
-  ($scope, Comment, FileUploader, $rootScope) ->
+angular.module('todoApp').controller 'CommentCtrl', ['$scope', 'Comment', 'FileUploader', '$rootScope', 'toastr'
+  ($scope, Comment, FileUploader, $rootScope, toastr) ->
     $scope.addComment = (task) ->
       if !task.newComment || task.newComment == ''
         return 
@@ -26,9 +26,8 @@ angular.module('todoApp').controller 'CommentCtrl', ['$scope', 'Comment', 'FileU
     $scope.uploader.onCompleteItem = (fileItem, response, status, headers) ->
       $scope.task.comments.forEach (fileItem)->
         if fileItem.id == response.comment_id
-          comment = fileItem
-          if comment.file_storages == undefined
-            comment.file_storages = new Array(response)
-          else
-            comment.file_storages.push(response)
+          fileItem.file_storages.push(response)
+
+    $scope.uploader.onErrorItem = (fileItem, response, status, headers) ->
+      toastr.error('Can\'t upload. File size too big, should be less then 24MB!', 'Error')
 ]
