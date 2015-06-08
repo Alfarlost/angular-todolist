@@ -1,4 +1,5 @@
 asset 'angular'
+asset 'jquery'
 asset 'jquery-ui'
 asset 'angular-devise'
 asset 'angular-ui-router'
