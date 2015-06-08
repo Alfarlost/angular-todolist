@@ -10,18 +10,18 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
-//= require jquery-ui
-//= require angular
-//= require angular-animate
-//= require angular-toastr
-//= require angular-ui-router
+//= require jquery/dist/jquery
+//= require jquery-ui/jquery-ui
+//= require angular/angular
+//= require angular-animate/angular-animate
+//= require angular-toastr/dist/angular-toastr
+//= require angular-ui-router/release/angular-ui-router
 //= require angular-rails-templates
-//= require angular-resource
-//= require angular-devise
-//= require angular-ui-sortable
-//= require angular-ui-date
-//= require angular-file-upload
+//= require angular-resource/angular-resource
+//= require angular-devise/lib/devise
+//= require angular-ui-sortable/sortable
+//= require angular-ui-date/src/date
+//= require angular-file-upload/angular-file-upload
 //= require_tree .
 //= require_tree ./templates
 
