@@ -13,6 +13,8 @@ gem 'coffee-rails', '~> 4.1.0'
 
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+gem 'jquery-rails'
+
 gem 'sprockets', '2.12.3'
 
 gem 'angular-rails-templates'
